@@ -1,0 +1,136 @@
+{
+  "title": "What We're Looking For",
+  "subtitle": "Screening variables for serial acquirers / M&A compounders — distilled from Thorndike, Mauboussin, Demesne, Swedish compounder operators, and investor letters/X discourse.",
+  "sources": [
+    "The Outsiders (Thorndike)",
+    "The Compounders (Nyland)",
+    "Mauboussin Capital Allocation / Evaluating M&A",
+    "Demesne — Practice Makes Perfect",
+    "Special Report — Serial Acquirers",
+    "X / letters: AcquirerHQ, PrivatEquityGuy, ValueByMarkus, Compounding Quality, Dutch Investors, Quartr"
+  ],
+  "pillars": [
+    {
+      "id": "deal_machine",
+      "name": "Proven deal machine",
+      "weight": 18,
+      "lookFor": [
+        "Many small, repeatable acquisitions vs rare mega-deals",
+        "Decades of compounding via M&A (or clear inheritance of the playbook)",
+        "High hit rate; few large write-downs or forced disposals",
+        "Management that talks about process, hurdles, and kill criteria — not just 'synergies'"
+      ],
+      "redFlags": [
+        "Growth driven by 1–2 transformative deals",
+        "Frequent impairment charges after big integrations"
+      ]
+    },
+    {
+      "id": "multiple_arbitrage",
+      "name": "Multiple arbitrage",
+      "weight": 16,
+      "lookFor": [
+        "Buys private/niche assets at low EV/EBITDA (often high-single to low-teens) while public vehicle trades richer",
+        "Fragmented sellers (founder exits, succession) with weak auction processes",
+        "Ability to keep paying modest multiples even as the platform scales"
+      ],
+      "redFlags": [
+        "Paying public-market multiples for private assets",
+        "Auction-driven bidding wars becoming the norm"
+      ]
+    },
+    {
+      "id": "one_plus_one",
+      "name": "1+1 > 2 (value creation beyond buying)",
+      "weight": 14,
+      "lookFor": [
+        "Either: autonomy model (preserve culture, keep talent, light HQ) — Swedish/CSU style",
+        "Or: disciplined cost/operating leverage (procurement, shared services) without destroying the niche",
+        "Pricing power, cross-sell, or 'complete solution' bundling where real (e.g. Danaher bioprocess)",
+        "Evidence that acquired ROIC stays high post-close"
+      ],
+      "redFlags": [
+        "Synergy theater with culture wipeouts",
+        "Heavy centralization that kills niche entrepreneurship"
+      ]
+    },
+    {
+      "id": "runway",
+      "name": "Acquisition runway",
+      "weight": 14,
+      "lookFor": [
+        "Still-fragmented end markets with thousands of small targets",
+        "Niche critical products/software (VMS, safety, dental, scientific instruments)",
+        "Addressable pipeline disclosed or inferable from deal pace vs market size"
+      ],
+      "redFlags": [
+        "TAM exhausted; forced into larger/riskier deals",
+        "Category consolidating into oligopoly with no small targets left"
+      ]
+    },
+    {
+      "id": "capital_allocation",
+      "name": "Capital allocation discipline",
+      "weight": 14,
+      "lookFor": [
+        "Explicit hierarchy: M&A vs organic reinvestment vs buybacks vs dividends vs debt paydown",
+        "Willingness to sit on cash when prices are high",
+        "Share count discipline; limited serial dilution",
+        "Returns on incremental capital / ROIIC tracked and discussed"
+      ],
+      "redFlags": [
+        "Empire building at any price",
+        "Constant equity issuance to fund mediocre deals"
+      ]
+    },
+    {
+      "id": "incentives_decentralization",
+      "name": "Incentives & decentralization",
+      "weight": 12,
+      "lookFor": [
+        "Owner-operators or strong owner mindset",
+        "Local P&L accountability; acquired managers stay and earn equity/earnouts aligned to value",
+        "HQ as capital allocator, not operating micromanager",
+        "Succession plan for the capital allocator (CEO stress test)"
+      ],
+      "redFlags": [
+        "Key-person risk with no bench",
+        "Incentives tied only to revenue or deal count"
+      ]
+    },
+    {
+      "id": "cash_quality",
+      "name": "Cash & accounting quality",
+      "weight": 12,
+      "lookFor": [
+        "High cash conversion after earnouts and working capital",
+        "Organic vs acquired growth separable",
+        "Goodwill growth matched by cash returns, not just EPS optics",
+        "Prudent leverage — tool, not requirement"
+      ],
+      "redFlags": [
+        "Rising leverage + rising purchase multiples together",
+        "Cash earnings chronically lag reported earnings"
+      ]
+    }
+  ],
+  "scoreGuide": {
+    "description": "Initial ranks score each company 1–10 on the seven pillars above, then form a weighted total (0–100). User ranks override defaults and persist in the browser.",
+    "tiers": [
+      { "min": 85, "label": "Elite compounder", "note": "Deep track record, durable runway, proven capital allocation" },
+      { "min": 75, "label": "Strong platform", "note": "Clear model; watch valuation and succession" },
+      { "min": 65, "label": "Watchlist quality", "note": "Fits the framework; needs more seasoning or valuation patience" },
+      { "min": 0, "label": "Speculative / early", "note": "Model nascent, cyclical, or execution risk elevated" }
+    ]
+  },
+  "trackingFields": [
+    "Deal count & average size (TTM / 5yr)",
+    "Organic growth vs acquired growth",
+    "Purchase multiple paid (disclosed or estimated)",
+    "ROIIC / ROCE trend",
+    "Net leverage / FCF conversion",
+    "Share count change",
+    "Management capital-allocation language",
+    "Leadership / succession events"
+  ]
+}

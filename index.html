@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>M&A Compounders Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <header class="site-header">
+    <div class="brand">
+      <p class="brand-mark">M&A Compounders</p>
+      <h1>Serial acquirer tracker</h1>
+      <p class="lede">Framework, rankings, and development tracking for companies that compound through acquisition and capital allocation. IBKR-tradable focus.</p>
+    </div>
+    <div class="header-actions">
+      <label class="search-wrap">
+        <span class="sr-only">Search</span>
+        <input id="search" type="search" placeholder="Search name or ticker…" />
+      </label>
+      <button type="button" id="reset-ranks" class="btn ghost" title="Clear your saved ranks">Reset my ranks</button>
+    </div>
+  </header>
+
+  <nav class="tabs" id="main-tabs" role="tablist" aria-label="Primary"></nav>
+
+  <main id="app" class="app"></main>
+
+  <footer class="site-footer">
+    <p>Not investment advice. Initial ranks are a first-pass synthesis of literature, letters, and public discourse. Your ranks save locally in this browser.</p>
+  </footer>
+
+  <dialog id="company-modal" class="modal">
+    <form method="dialog" class="modal-inner">
+      <button type="submit" class="modal-close" aria-label="Close">×</button>
+      <div id="modal-body"></div>
+    </form>
+  </dialog>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
