@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11",
+  "updated": "2026-11-12",
   "notes": "IBKR-focus tickers (local + common US listings). Scores are a first-pass judgment from public track records, investor discourse (X/letters), and classic serial-acquirer literature — not investment advice. Re-rank in the UI. 2026-11-11: added 38 established acquirers screened for proven CEOs and remaining runway; IBKR symbols follow the primary listing and should be confirmed in TWS.",
   "companies": [
     {
@@ -1309,6 +1309,28 @@
       "thesis": "Steady distribution consolidator; less 'sexy' than VMS/Swedish names but durable deal machine.",
       "sources": ["Serial acquirer industry comps"],
       "developments": []
+    },
+    {
+      "id": "ngtg",
+      "name": "Next Generation Technology Group",
+      "ticker": "319A",
+      "exchange": "Tokyo Stock Exchange",
+      "ibkr": "319A",
+      "country": "Japan",
+      "industry": "Specialist Manufacturing / Industrials",
+      "model": "Japanese SME serial acquirer (Danaher-inspired NGP)",
+      "rank": 77,
+      "scores": { "deal_machine": 6, "multiple_arbitrage": 9, "one_plus_one": 8, "runway": 9, "capital_allocation": 6, "incentives_decentralization": 8, "cash_quality": 5 },
+      "ceo": "Arai (founder/CEO)",
+      "added": "2026-11-12",
+      "thesis": "Post-IPO Japanese serial acquirer of specialist manufacturers. Buys at ~2–4x EBITDA (often not the highest bid) by offering succession plans, local autonomy, and a no-sale cultural promise; NGP playbook targets 200–300bps EBITDA-margin uplift in 12–18 months. Huge succession-driven SME runway, but young track record and heavy non-recourse / floating-rate leverage are the main risks.",
+      "sources": ["VIC write-up 2026-11-12 (319A Next Generation Technology Group)"],
+      "developments": [
+        { "date": "2018", "note": "Founded; CEO studied global serial acquirers and modeled NGP on Danaher." },
+        { "date": "2025-02", "note": "IPO; acquisition pace accelerated (20+ companies since inception)." },
+        { "date": "2025-Q3+", "note": "Shift toward floating-rate acquisition debt (~1.5–2%); leverage strategy remains aggressive (target 3–4x ND/EBITDA)." },
+        { "date": "2026-11-12", "note": "Added from VIC idea: wins deals as lowest bidder via succession/culture; screens ~0.7% of brokered deal flow." }
+      ]
     }
   ]
 }
