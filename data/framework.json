@@ -117,10 +117,26 @@
   "scoreGuide": {
     "description": "Initial ranks score each company 1–10 on the seven pillars above, then form a weighted total (0–100). User ranks override defaults and persist in the browser.",
     "tiers": [
-      { "min": 85, "label": "Elite compounder", "note": "Deep track record, durable runway, proven capital allocation" },
-      { "min": 75, "label": "Strong platform", "note": "Clear model; watch valuation and succession" },
-      { "min": 65, "label": "Watchlist quality", "note": "Fits the framework; needs more seasoning or valuation patience" },
-      { "min": 0, "label": "Speculative / early", "note": "Model nascent, cyclical, or execution risk elevated" }
+      {
+        "min": 85,
+        "label": "Elite compounder",
+        "note": "Deep track record, durable runway, proven capital allocation"
+      },
+      {
+        "min": 75,
+        "label": "Strong platform",
+        "note": "Clear model; watch valuation and succession"
+      },
+      {
+        "min": 65,
+        "label": "Watchlist quality",
+        "note": "Fits the framework; needs more seasoning or valuation patience"
+      },
+      {
+        "min": 0,
+        "label": "Speculative / early",
+        "note": "Model nascent, cyclical, or execution risk elevated"
+      }
     ]
   },
   "trackingFields": [
@@ -132,5 +148,39 @@
     "Share count change",
     "Management capital-allocation language",
     "Leadership / succession events"
-  ]
+  ],
+  "bankLens": {
+    "title": "Bank consolidators",
+    "subtitle": "Banks that grow by buying other banks — and whose returns got better, not just bigger, afterwards. Same seven pillars, read through a bank lens.",
+    "lookFor": [
+      "Tangible book value per share that keeps compounding through deals (short earn-back on any dilution)",
+      "Efficiency ratio and ROTCE that improve within a few quarters of conversion",
+      "Low-cost core deposits acquired, not just loans",
+      "Buying at or below the acquirer's own price-to-tangible-book; discipline to walk away",
+      "Clean credit through cycles and capital left over for buybacks",
+      "A long-tenured CEO or owner-family who has integrated many banks before"
+    ],
+    "redFlags": [
+      "Large stock-funded deals with TBV dilution and multi-year earn-backs",
+      "Earnings propped up by purchase-accounting accretion that then fades",
+      "Efficiency ratio drifting up deal after deal",
+      "Commercial real estate concentration inherited from targets",
+      "Growth by merger of equals with shared control"
+    ],
+    "pillarNotes": "Multiple arbitrage = price paid versus tangible book and deposits. 1+1>2 = cost take-out and deposit repricing. Cash quality = credit quality and capital.",
+    "statuses": [
+      {
+        "label": "Proven",
+        "note": "Returns at or near record after the most recent deal"
+      },
+      {
+        "label": "Steady",
+        "note": "Long record, profitable, but not currently improving"
+      },
+      {
+        "label": "Digesting",
+        "note": "Large recent deal; returns or TBV below pre-deal levels for now"
+      }
+    ]
+  }
 }

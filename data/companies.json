@@ -1,6 +1,6 @@
 {
   "updated": "2026-11-12",
-  "notes": "IBKR-focus tickers (local + common US listings). Scores are a first-pass judgment from public track records, investor discourse (X/letters), and classic serial-acquirer literature — not investment advice. Re-rank in the UI. 2026-11-11: added 38 established acquirers screened for proven CEOs and remaining runway; IBKR symbols follow the primary listing and should be confirmed in TWS.",
+  "notes": "IBKR-focus tickers (local + common US listings). Scores are a first-pass judgment from public track records, investor discourse (X/letters), and classic serial-acquirer literature — not investment advice. Re-rank in the UI. 2026-11-11: added 38 established acquirers screened for proven CEOs and remaining runway; IBKR symbols follow the primary listing and should be confirmed in TWS. 2026-11-12: added a Banks segment (segment = banks) of 14 bank consolidators, each tagged Proven / Steady / Digesting by whether returns improved after their deals.",
   "companies": [
     {
       "id": "csu",
@@ -1330,6 +1330,376 @@
         { "date": "2025-02", "note": "IPO; acquisition pace accelerated (20+ companies since inception)." },
         { "date": "2025-Q3+", "note": "Shift toward floating-rate acquisition debt (~1.5–2%); leverage strategy remains aggressive (target 3–4x ND/EBITDA)." },
         { "date": "2026-11-12", "note": "Added from VIC idea: wins deals as lowest bidder via succession/culture; screens ~0.7% of brokered deal flow." }
+      ]
+    },
+    {
+      "id": "fcnca",
+      "name": "First Citizens BancShares",
+      "ticker": "FCNCA",
+      "exchange": "NASDAQ",
+      "ibkr": "FCNCA",
+      "country": "United States",
+      "industry": "Banks",
+      "segment": "banks",
+      "model": "Family-controlled failed-bank and whole-bank acquirer",
+      "rank": 78,
+      "scores": { "deal_machine": 8, "multiple_arbitrage": 10, "one_plus_one": 9, "runway": 6, "capital_allocation": 10, "incentives_decentralization": 9, "cash_quality": 8 },
+      "ceo": "Frank B. Holding Jr. (Chairman & CEO since 2008; Holding family controls)",
+      "added": "2026-11-12",
+      "bank": {
+        "status": "Proven",
+        "assets": "~$230B",
+        "record": "19 bank integrations since 2015, incl. CIT (2022) and Silicon Valley Bank (2023, FDIC-assisted)",
+        "proof": "Tangible book value per share multiplied after buying SVB at a deep discount; now returning the gain through buybacks ($600M in Q3 2026 alone, new $1.2B plan)."
+      },
+      "thesis": "The best bargain-purchase record in US banking: buys failed or distressed banks from the FDIC at discounts to book, integrates them fast, then shrinks the share count. Deals are opportunistic, so runway depends on the next dislocation; between crises it grows by branch deals and buybacks.",
+      "sources": ["First Citizens Q3 2026 release (Earnings Whispers / Quiver)", "First Citizens BMO branch presentation (Quartr)"],
+      "developments": [
+        { "date": "2026-09", "note": "Closed purchase of 138 BMO branches (~$4.9B deposits, ~5% deposit premium, minimal TBV dilution); open to more branch deals." },
+        { "date": "2026-Q3", "note": "Net income $606M; CET1 10.24%; repurchased $600M of stock and authorized a further $1.2B through 2027." }
+      ]
+    },
+    {
+      "id": "homb",
+      "name": "Home BancShares",
+      "ticker": "HOMB",
+      "exchange": "NYSE",
+      "ibkr": "HOMB",
+      "country": "United States",
+      "industry": "Banks",
+      "segment": "banks",
+      "model": "Disciplined community-bank acquirer (Centennial Bank)",
+      "rank": 79,
+      "scores": { "deal_machine": 8, "multiple_arbitrage": 8, "one_plus_one": 9, "runway": 7, "capital_allocation": 9, "incentives_decentralization": 9, "cash_quality": 9 },
+      "ceo": "John W. Allison (co-founder, Chairman & CEO)",
+      "added": "2026-11-12",
+      "bank": {
+        "status": "Proven",
+        "assets": "$24B",
+        "record": "20+ acquisitions since 2003, many FDIC-assisted in Florida; Happy Bancshares (2022); Mountain Commerce (2026)",
+        "proof": "Q3 2026: record net income, ROA 2.12%, ROTCE 16.6%, efficiency ratio 40.8%, TBV/share +8.6% YoY — one of the most profitable US banks of any size, with the latest deal already absorbed."
+      },
+      "thesis": "Allison only buys when the deal is accretive to tangible book quickly and walks away otherwise, then runs acquired banks to a ~40% efficiency ratio. Heavy insider ownership, fortress capital, steady buybacks. He is in his late 70s, so succession matters.",
+      "sources": ["Home BancShares Q3 2026 release (Finviz)"],
+      "developments": [
+        { "date": "2026-Q2", "note": "Closed Mountain Commerce Bancorp (Tennessee); efficiency ratio was back to 40.8% by Q3 once merger costs dropped out." },
+        { "date": "2026-Q3", "note": "Bought back 1.3M shares; dividend raised to $0.23." }
+      ]
+    },
+    {
+      "id": "bawag",
+      "name": "BAWAG Group",
+      "ticker": "BG",
+      "exchange": "Vienna Stock Exchange",
+      "ibkr": "BG",
+      "country": "Austria",
+      "industry": "Banks",
+      "segment": "banks",
+      "model": "Low-cost retail bank acquirer across Europe and the US",
+      "rank": 80,
+      "scores": { "deal_machine": 8, "multiple_arbitrage": 9, "one_plus_one": 9, "runway": 7, "capital_allocation": 9, "incentives_decentralization": 8, "cash_quality": 8 },
+      "ceo": "Anas Abuzaakouk (CEO since 2017; management owns a meaningful stake)",
+      "added": "2026-11-12",
+      "bank": {
+        "status": "Proven",
+        "assets": "~€70B+",
+        "record": "A dozen-plus deals since 2015 (easybank, Südwestbank, start:bausparkasse, Idaho First, Knab, Barclays Consumer Bank Europe)",
+        "proof": "Q3 2026 RoTCE 26.9% and cost-income ratio 29.8% — among the best in European banking — with net profit +13% YoY after absorbing Knab and Barclays Consumer Bank Europe."
+      },
+      "thesis": "Run like a private-equity-owned bank: buys sub-scale or orphaned retail banks at or below book, strips cost onto one platform, and returns surplus capital. Every acquired bank has been brought to group-level efficiency. The Irish deal is its largest yet.",
+      "sources": ["BAWAG Q3 2026 results (Quartr, EQS)"],
+      "developments": [
+        { "date": "2026", "note": "Agreed all-cash €1.62B acquisition of PTSB, Ireland's third-largest bank, targeting 20%+ EPS accretion by 2027; closing status to confirm." },
+        { "date": "2026-Q3", "note": "Net profit €247.5M, RoTCE 26.9%, CIR 29.8%; 2026 targets (net profit >€960M, RoTCE >20%) reaffirmed excluding PTSB." }
+      ]
+    },
+    {
+      "id": "nic",
+      "name": "Nicolet Bankshares",
+      "ticker": "NIC",
+      "exchange": "NYSE",
+      "ibkr": "NIC",
+      "country": "United States",
+      "industry": "Banks",
+      "segment": "banks",
+      "model": "Upper-Midwest community-bank consolidator",
+      "rank": 81,
+      "scores": { "deal_machine": 8, "multiple_arbitrage": 8, "one_plus_one": 9, "runway": 7, "capital_allocation": 8, "incentives_decentralization": 8, "cash_quality": 8 },
+      "ceo": "Mike Daniels (Chairman, President & CEO; co-founder)",
+      "added": "2026-11-12",
+      "bank": {
+        "status": "Proven",
+        "assets": "~$15B",
+        "record": "Nine-plus bank deals since 2013 (Baylake, Mackinac, County Bancorp, Charter); MidWestOne closed Feb 2026",
+        "proof": "Two quarters after closing its largest deal: Q3 2026 ROA 1.66%, ROTCE 20.8%, efficiency ratio 51.7% (58.6% in Q2), NIM 4.19%, with conversion finished and buybacks resumed."
+      },
+      "thesis": "Founder-led bank that has compounded by buying rural and small-city franchises with cheap deposits and bringing them to top-quartile returns. MidWestOne roughly doubled the bank and took it into Iowa and the Twin Cities — and the numbers improved almost immediately.",
+      "sources": ["Nicolet Q3 2026 results (Earnings Whispers)", "Nicolet Q1 2026 report"],
+      "developments": [
+        { "date": "2026-Q3", "note": "MidWestOne integration and core conversion complete; Denver branches sold in July; $40M of stock repurchased." },
+        { "date": "2026-02", "note": "Closed MidWestOne Financial (~$6B assets), structured to avoid material TBV dilution." }
+      ]
+    },
+    {
+      "id": "gbci",
+      "name": "Glacier Bancorp",
+      "ticker": "GBCI",
+      "exchange": "NYSE",
+      "ibkr": "GBCI",
+      "country": "United States",
+      "industry": "Banks",
+      "segment": "banks",
+      "model": "Decentralized 'division bank' acquirer in the Mountain West",
+      "rank": 82,
+      "scores": { "deal_machine": 9, "multiple_arbitrage": 7, "one_plus_one": 8, "runway": 8, "capital_allocation": 7, "incentives_decentralization": 9, "cash_quality": 8 },
+      "ceo": "Randy Chesler (President & CEO since 2017)",
+      "added": "2026-11-12",
+      "bank": {
+        "status": "Proven",
+        "assets": "$32B",
+        "record": "25+ bank acquisitions since 2000; recently Bank of Idaho (2025) and Guaranty Bancshares, Texas (Oct 2025)",
+        "proof": "Q3 2026 record net income of $104.6M, ROA 1.31%, efficiency ratio 56.1% (58.5% year-to-date), NIM 4.01% — all improving as low-yield assets reprice and Guaranty's conversion is finished."
+      },
+      "thesis": "The closest thing in banking to the Swedish model: acquired banks keep their name, president and local board as divisions, while Glacier supplies capital, risk and technology. Low-cost core deposits are the prize. Guaranty is its first step into Texas.",
+      "sources": ["Glacier Q3 2026 release (Finviz)"],
+      "developments": [
+        { "date": "2026", "note": "Guaranty core conversion completed; record quarterly earnings in Q3." }
+      ]
+    },
+    {
+      "id": "otp",
+      "name": "OTP Bank",
+      "ticker": "OTP",
+      "exchange": "Budapest Stock Exchange",
+      "ibkr": "OTP",
+      "country": "Hungary",
+      "industry": "Banks",
+      "segment": "banks",
+      "model": "Central & Eastern European bank consolidator",
+      "rank": 83,
+      "scores": { "deal_machine": 9, "multiple_arbitrage": 9, "one_plus_one": 8, "runway": 7, "capital_allocation": 8, "incentives_decentralization": 7, "cash_quality": 6 },
+      "ceo": "Sándor Csányi (Chairman; ran the bank 1992-2025), Péter Csányi (CEO)",
+      "added": "2026-11-12",
+      "bank": {
+        "status": "Proven",
+        "assets": "~€110B",
+        "record": "20+ bank acquisitions across CEE and Central Asia since 2001 (DSK Bulgaria, SKB/Nova KBM Slovenia, Ipoteka Uzbekistan), usually from exiting Western banks",
+        "proof": "Normalized ROE ~21% in H1 2026 with cost/income ~42%, well above Western European peers, after two decades of buying subsidiaries below book and lifting their returns."
+      },
+      "thesis": "The dominant acquirer of banks that Western groups want to sell in Eastern Europe. High returns, low valuation. The discount exists for reasons: Hungarian windfall taxes, a still-open Russian subsidiary, and currency risk.",
+      "sources": ["OTP Q2 2026 summary (Quartr)", "S&P Global Market Intelligence on Luminor"],
+      "developments": [
+        { "date": "2026", "note": "Announced acquisition of Baltic lender Luminor (adds ~13% to assets, three euro-zone markets); regulators expected to scrutinize OTP's Russian operations." },
+        { "date": "2026-H1", "note": "Adjusted profit HUF 580B (-2% YoY); ROE guided lower than 2025 on reduced leverage." }
+      ]
+    },
+    {
+      "id": "mtb",
+      "name": "M&T Bank",
+      "ticker": "MTB",
+      "exchange": "NYSE",
+      "ibkr": "MTB",
+      "country": "United States",
+      "industry": "Banks",
+      "segment": "banks",
+      "model": "Conservative super-regional with a long acquisition record",
+      "rank": 84,
+      "scores": { "deal_machine": 7, "multiple_arbitrage": 8, "one_plus_one": 9, "runway": 5, "capital_allocation": 9, "incentives_decentralization": 8, "cash_quality": 9 },
+      "ceo": "René Jones (Chairman & CEO since 2017; Robert Wilmers' successor)",
+      "added": "2026-11-12",
+      "bank": {
+        "status": "Proven",
+        "assets": "~$210B",
+        "record": "20+ acquisitions since 1987 (Allfirst, Wilmington Trust, Hudson City, People's United 2022)",
+        "proof": "Decades of industry-leading credit and efficiency through cycles; nine-month 2026 EPS +17% as People's United is fully absorbed and capital goes to buybacks. Targeting 17% operating ROTCE in 2027."
+      },
+      "thesis": "The Wilmers-era template: buy only when sellers are distressed or cheap, never stretch on credit, keep the share count flat or falling. No bank deal since People's United, so today it is a capital-return story with the option of another acquisition.",
+      "sources": ["M&T Q3 2026 summary (Quartr)"],
+      "developments": [
+        { "date": "2026-Q3", "note": "Net income $775M, EPS $5.04 (+5% YoY); CET1 guided to 10.0-10.25%. No new deal commentary." }
+      ]
+    },
+    {
+      "id": "onb",
+      "name": "Old National Bancorp",
+      "ticker": "ONB",
+      "exchange": "NASDAQ",
+      "ibkr": "ONB",
+      "country": "United States",
+      "industry": "Banks",
+      "segment": "banks",
+      "model": "Midwest partnership-style acquirer",
+      "rank": 85,
+      "scores": { "deal_machine": 8, "multiple_arbitrage": 8, "one_plus_one": 8, "runway": 7, "capital_allocation": 8, "incentives_decentralization": 7, "cash_quality": 8 },
+      "ceo": "Jim Ryan (Chairman & CEO since 2019)",
+      "added": "2026-11-12",
+      "bank": {
+        "status": "Proven",
+        "assets": "~$70B",
+        "record": "First Midwest (2022 merger of equals), CapStar (2024), Bremer (2025), plus many earlier Indiana/Wisconsin/Minnesota deals",
+        "proof": "Q3 2026 record net income of $254M (+39% YoY), record adjusted efficiency ratio of 44.9%, and an eighth straight quarter of positive operating leverage with Bremer fully integrated."
+      },
+      "thesis": "Has tripled in size since 2019 through well-priced, low-drama deals in adjacent Midwest markets, each one lowering the efficiency ratio. Low-cost granular deposits; commercial real estate is the exposure to watch.",
+      "sources": ["Old National Q3 2026 results (Quartr, Panabee)"],
+      "developments": [
+        { "date": "2026-Q3", "note": "Bremer integration complete; EPS $0.66 (+43% YoY); NIM 3.52%." }
+      ]
+    },
+    {
+      "id": "pb",
+      "name": "Prosperity Bancshares",
+      "ticker": "PB",
+      "exchange": "NYSE",
+      "ibkr": "PB",
+      "country": "United States",
+      "industry": "Banks",
+      "segment": "banks",
+      "model": "Texas low-cost bank consolidator",
+      "rank": 86,
+      "scores": { "deal_machine": 9, "multiple_arbitrage": 7, "one_plus_one": 7, "runway": 7, "capital_allocation": 7, "incentives_decentralization": 8, "cash_quality": 8 },
+      "ceo": "David Zalman (Senior Chairman & CEO; since 2001)",
+      "added": "2026-11-12",
+      "bank": {
+        "status": "Digesting",
+        "assets": "$54B",
+        "record": "30+ acquisitions since the 1998 IPO; three in 2026 — American Bank, Texas Partners and Stellar Bancorp ($10.4B assets)",
+        "proof": "Historically among the most efficient US banks (44% efficiency ratio a year ago), but the 2026 deals have not yet earned their keep: Q3 ROTCE 11.1% vs 13.4%, ROA 1.06% vs 1.44%, TBV/share $39.71 vs $43.23. Excluding merger costs the efficiency ratio was 48%."
+      },
+      "thesis": "The Texas template for buying banks cheaply and running them lean. 2026 was its busiest year ever and the dilution is real, so this is a 'prove it again' situation: watch for the efficiency ratio to return to the mid-40s and TBV to rebuild through 2027.",
+      "sources": ["Prosperity Q3 2026 release (Finviz)", "24/7 Wall St."],
+      "developments": [
+        { "date": "2026-07", "note": "Closed Stellar Bancorp (52 offices, Houston) for stock plus ~$579M cash." },
+        { "date": "2026-Q3", "note": "NIM up to 3.73% from 3.24%; integration of Texas Partners and Stellar still under way." }
+      ]
+    },
+    {
+      "id": "ubsi",
+      "name": "United Bankshares",
+      "ticker": "UBSI",
+      "exchange": "NASDAQ",
+      "ibkr": "UBSI",
+      "country": "United States",
+      "industry": "Banks",
+      "segment": "banks",
+      "model": "Mid-Atlantic and Southeast serial acquirer",
+      "rank": 87,
+      "scores": { "deal_machine": 8, "multiple_arbitrage": 7, "one_plus_one": 7, "runway": 7, "capital_allocation": 7, "incentives_decentralization": 7, "cash_quality": 8 },
+      "ceo": "Richard M. Adams Jr. (CEO; Richard Adams Sr. is Executive Chairman after ~50 years as CEO)",
+      "added": "2026-11-12",
+      "bank": {
+        "status": "Steady",
+        "assets": "~$33B",
+        "record": "34 acquisitions under the Adams family, most recently Piedmont Bancorp, Atlanta (2025)",
+        "proof": "Consistently profitable with 50+ years of dividend increases, but not currently improving: Q3 2026 net income $128.7M vs $130.7M a year earlier; NIM up to 3.86%."
+      },
+      "thesis": "One of the longest acquisition records in US banking, moving from West Virginia into the DC area, the Carolinas and Georgia. Conservative credit and capital. A dependable acquirer rather than one showing post-deal acceleration.",
+      "sources": ["United Bankshares Q3 2026 release (Quiver)"],
+      "developments": [
+        { "date": "2026-Q3", "note": "Record net interest income of $294M; earnings roughly flat YoY." }
+      ]
+    },
+    {
+      "id": "pnc",
+      "name": "PNC Financial Services",
+      "ticker": "PNC",
+      "exchange": "NYSE",
+      "ibkr": "PNC",
+      "country": "United States",
+      "industry": "Banks",
+      "segment": "banks",
+      "model": "National-expansion acquirer",
+      "rank": 88,
+      "scores": { "deal_machine": 7, "multiple_arbitrage": 7, "one_plus_one": 8, "runway": 6, "capital_allocation": 8, "incentives_decentralization": 7, "cash_quality": 8 },
+      "ceo": "William Demchak (Chairman & CEO since 2013)",
+      "added": "2026-11-12",
+      "bank": {
+        "status": "Proven",
+        "assets": "$628B",
+        "record": "National City (2008), RBC Bank USA (2012), BBVA USA (2021), FirstBank (2025-26)",
+        "proof": "Q3 2026 ROTCE 18.3% (16.8% a year earlier) and efficiency ratio 57% (59%), with net income +15% while absorbing FirstBank."
+      },
+      "thesis": "Each large deal was bought at a sensible price in a weak moment and converted quickly. Demchak has been explicit that scale matters and PNC intends to be a national bank. Deals are few and large rather than programmatic.",
+      "sources": ["PNC Q3 2026 release (Finviz)"],
+      "developments": [
+        { "date": "2026", "note": "FirstBank (Colorado/Arizona) integration costs of $127M in Q2 and $36M in Q3; $0.6B of buybacks per quarter." }
+      ]
+    },
+    {
+      "id": "sbcf",
+      "name": "Seacoast Banking Corp. of Florida",
+      "ticker": "SBCF",
+      "exchange": "NASDAQ",
+      "ibkr": "SBCF",
+      "country": "United States",
+      "industry": "Banks",
+      "segment": "banks",
+      "model": "Florida community-bank roll-up",
+      "rank": 89,
+      "scores": { "deal_machine": 8, "multiple_arbitrage": 7, "one_plus_one": 7, "runway": 7, "capital_allocation": 7, "incentives_decentralization": 7, "cash_quality": 7 },
+      "ceo": "Charles Shaffer (Chairman & CEO since 2021)",
+      "added": "2026-11-12",
+      "bank": {
+        "status": "Proven",
+        "assets": "$21B",
+        "record": "15+ Florida bank acquisitions since 2014; Heartland (2025) and Villages Bancorporation (Oct 2025)",
+        "proof": "Q3 2026 adjusted ROTCE 16.9%, adjusted efficiency ratio 53.9% (57.6% a year ago), NIM +26bp to 3.83%, net income +64% with Villages integrated. Reported TBV/share fell ~9% YoY, mostly from securities marks."
+      },
+      "thesis": "Consolidating one of the best deposit markets in the US. Returns were mediocre for years because of constant deal costs; the Villages deal added an unusually cheap deposit base and the improvement is now showing. TBV dilution is the thing to keep checking.",
+      "sources": ["Seacoast Q3 2026 release (Finviz)"],
+      "developments": [
+        { "date": "2026-Q3", "note": "Villages integration completed; small insurance agency acquired." }
+      ]
+    },
+    {
+      "id": "ssb",
+      "name": "SouthState Bank",
+      "ticker": "SSB",
+      "exchange": "NYSE",
+      "ibkr": "SSB",
+      "country": "United States",
+      "industry": "Banks",
+      "segment": "banks",
+      "model": "Southeast and Texas regional consolidator",
+      "rank": 90,
+      "scores": { "deal_machine": 8, "multiple_arbitrage": 7, "one_plus_one": 7, "runway": 7, "capital_allocation": 7, "incentives_decentralization": 7, "cash_quality": 7 },
+      "ceo": "John Corbett (CEO since 2020)",
+      "added": "2026-11-12",
+      "bank": {
+        "status": "Digesting",
+        "assets": "~$66B",
+        "record": "CenterState merger (2020), Atlantic Capital (2022), Independent Bank Group, Texas (Jan 2025), plus a long line of earlier Carolinas/Florida deals",
+        "proof": "Independent Bank lifted returns in 2025, but Q3 2026 EPS fell ~11% YoY as purchase accretion faded and costs rose; efficiency ratio 51.6%, core margin still rising."
+      },
+      "thesis": "Well-regarded management with top Southeast deposit markets and a clean credit record. The step into Texas was well priced; the question now is whether core earnings replace fading accretion income.",
+      "sources": ["SouthState Q3 2026 coverage (Earnings Whispers via Finviz)"],
+      "developments": [
+        { "date": "2026-Q3", "note": "EPS $2.30 vs $2.39 consensus; margin guidance raised to 3.75-3.85%; buybacks slowed." }
+      ]
+    },
+    {
+      "id": "hban",
+      "name": "Huntington Bancshares",
+      "ticker": "HBAN",
+      "exchange": "NASDAQ",
+      "ibkr": "HBAN",
+      "country": "United States",
+      "industry": "Banks",
+      "segment": "banks",
+      "model": "Midwest super-regional expanding into Texas and the South",
+      "rank": 91,
+      "scores": { "deal_machine": 7, "multiple_arbitrage": 6, "one_plus_one": 6, "runway": 7, "capital_allocation": 6, "incentives_decentralization": 7, "cash_quality": 6 },
+      "ceo": "Stephen Steinour (Chairman & CEO since 2009)",
+      "added": "2026-11-12",
+      "bank": {
+        "status": "Digesting",
+        "assets": "$288B",
+        "record": "FirstMerit (2016), TCF (2021), Veritex (2025), Cadence Bank (2026)",
+        "proof": "Not improved yet: Q3 2026 ROTCE 14.6% (17.8% a year ago), GAAP efficiency ratio 63.5% (58.4%), TBV/share $9.47 after issuing ~450M shares. Management says synergies are on target."
+      },
+      "thesis": "Steinour rebuilt Huntington after 2009 and FirstMerit/TCF worked. Two large stock-funded deals in a year are a different scale of bet; include it for the record, but it does not currently meet the 'acquired and improved' test.",
+      "sources": ["Huntington Q3 2026 analysis (Beancount)"],
+      "developments": [
+        { "date": "2026-Q3", "note": "Net income $724M (+15% YoY) but EPS $0.33 (-20%); $117M of acquisition-related expense in the quarter." }
       ]
     }
   ]

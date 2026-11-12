@@ -19,6 +19,7 @@ const state = {
   sort: "rank",
   dragId: null,
   latestAdded: null,
+  segment: "all",
 };
 
 async function loadData() {
@@ -139,6 +140,7 @@ function renderTabs() {
   const items = [
     { id: "framework", label: "What we look for" },
     { id: "rankings", label: "Rankings" },
+    ...(state.companies.some(isBank) ? [{ id: "banks", label: "Banks" }] : []),
     ...countries().map((c) => ({ id: `country:${c}`, label: c })),
   ];
   tabs.innerHTML = items
@@ -160,6 +162,7 @@ function render() {
   const app = document.getElementById("app");
   if (state.tab === "framework") app.innerHTML = renderFramework();
   else if (state.tab === "rankings") app.innerHTML = renderRankings();
+  else if (state.tab === "banks") app.innerHTML = renderBanks();
   else if (state.tab.startsWith("country:")) {
     const country = state.tab.slice("country:".length);
     app.innerHTML = renderCountry(country);
@@ -215,8 +218,98 @@ function renderFramework() {
     </section>`;
 }
 
+function isBank(c) {
+  return c.segment === "banks";
+}
+
+function statusClass(status) {
+  const s = String(status || "").toLowerCase();
+  if (s === "proven") return "elite";
+  if (s === "steady") return "watch";
+  return "spec";
+}
+
+function renderBanks() {
+  const lens = state.framework.bankLens;
+  const list = filteredCompanies()
+    .filter(isBank)
+    .sort((a, b) => b.weighted - a.weighted || a.name.localeCompare(b.name));
+  return `
+    <section class="panel">
+      ${
+        lens
+          ? `
+      <div class="framework-hero">
+        <h2>${escapeHtml(lens.title)}</h2>
+        <p>${escapeHtml(lens.subtitle)}</p>
+      </div>
+      <div class="pillar-grid">
+        <article class="pillar">
+          <h4>Look for</h4>
+          <ul>${lens.lookFor.map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul>
+        </article>
+        <article class="pillar">
+          <h4>Red flags</h4>
+          <ul>${lens.redFlags.map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul>
+        </article>
+        <article class="pillar">
+          <h4>Status labels</h4>
+          <ul class="status-list">${lens.statuses
+            .map(
+              (t) =>
+                `<li><span class="tier-badge ${statusClass(t.label)}">${escapeHtml(t.label)}</span> ${escapeHtml(t.note)}</li>`
+            )
+            .join("")}</ul>
+          <p class="muted">${escapeHtml(lens.pillarNotes)}</p>
+        </article>
+      </div>`
+          : ""
+      }
+      <div class="section-head">
+        <div>
+          <h2>${list.length} bank consolidators</h2>
+          <p>Ordered by weighted score. Click a row for the full thesis and developments.</p>
+        </div>
+      </div>
+      ${
+        list.length
+          ? `
+      <div class="table-scroll">
+      <table class="company-table bank-table">
+        <thead>
+          <tr><th>Bank</th><th>Status</th><th>Deal record</th><th>Evidence it worked</th><th>Score</th><th>IBKR</th></tr>
+        </thead>
+        <tbody>
+          ${list
+            .map(
+              (c) => `
+          <tr data-id="${c.id}">
+            <td class="name-cell">
+              <strong>${escapeHtml(c.name)}</strong>
+              <span class="ticker">${escapeHtml(c.ticker)}</span>
+              <div class="muted">${escapeHtml(c.country)} · ${escapeHtml(c.bank?.assets || "")} assets</div>
+              <div class="muted">${escapeHtml(c.ceo || "")}</div>
+            </td>
+            <td><span class="tier-badge ${statusClass(c.bank?.status)}">${escapeHtml(c.bank?.status || "—")}</span></td>
+            <td class="bank-text">${escapeHtml(c.bank?.record || "")}</td>
+            <td class="bank-text">${escapeHtml(c.bank?.proof || "")}</td>
+            <td><span class="score-badge">${c.weighted}</span></td>
+            <td><span class="ticker">${escapeHtml(c.ibkr)}</span></td>
+          </tr>`
+            )
+            .join("")}
+        </tbody>
+      </table>
+      </div>`
+          : `<div class="empty">No banks match this filter.</div>`
+      }
+    </section>`;
+}
+
 function renderRankings() {
-  const list = filteredCompanies();
+  const list = filteredCompanies().filter(
+    (c) => state.segment === "all" || (state.segment === "banks" ? isBank(c) : !isBank(c))
+  );
   return `
     <section class="panel">
       <div class="section-head">
@@ -225,6 +318,14 @@ function renderRankings() {
           <p>Drag rows or edit rank #. Scores are weighted pillar totals (0–100). Click a row for details &amp; developments.</p>
         </div>
         <div class="controls">
+          <label>
+            <span class="sr-only">Segment</span>
+            <select id="segment-select">
+              <option value="all" ${state.segment === "all" ? "selected" : ""}>All segments</option>
+              <option value="acquirers" ${state.segment === "acquirers" ? "selected" : ""}>Serial acquirers</option>
+              <option value="banks" ${state.segment === "banks" ? "selected" : ""}>Banks</option>
+            </select>
+          </label>
           <label>
             <span class="sr-only">Sort</span>
             <select id="sort-select">
@@ -236,7 +337,7 @@ function renderRankings() {
           </label>
         </div>
       </div>
-      ${renderCompanyTable(list, { showCountry: true, draggable: state.sort === "rank" })}
+      ${renderCompanyTable(list, { showCountry: true, draggable: state.sort === "rank" && state.segment === "all" })}
     </section>`;
 }
 
@@ -329,6 +430,14 @@ function bindTableEvents() {
     });
   }
 
+  const segment = document.getElementById("segment-select");
+  if (segment) {
+    segment.addEventListener("change", () => {
+      state.segment = segment.value;
+      render();
+    });
+  }
+
   document.querySelectorAll(".rank-input").forEach((input) => {
     input.addEventListener("change", () => {
       const id = input.dataset.rankFor;
@@ -408,6 +517,15 @@ function openCompany(id) {
     <p class="ticker">${escapeHtml(c.ticker)} · IBKR: ${escapeHtml(c.ibkr)} · Exchange: ${escapeHtml(c.exchange)}</p>
     ${c.ceo ? `<p class="ceo-line"><strong>Capital allocator:</strong> ${escapeHtml(c.ceo)}</p>` : ""}
     <p>${escapeHtml(c.thesis)}</p>
+    ${
+      c.bank
+        ? `<div class="bank-box">
+      <p><span class="tier-badge ${statusClass(c.bank.status)}">${escapeHtml(c.bank.status)}</span> <span class="muted">${escapeHtml(c.bank.assets)} assets</span></p>
+      <p><strong>Deal record:</strong> ${escapeHtml(c.bank.record)}</p>
+      <p><strong>Evidence it worked:</strong> ${escapeHtml(c.bank.proof)}</p>
+    </div>`
+        : ""
+    }
     <p><span class="rank-badge">#${c.userRank}</span>
        <span class="score-badge">${c.weighted}</span>
        <span class="tier-badge ${tierClass(tier.label)}">${escapeHtml(tier.label)}</span></p>
