@@ -68,8 +68,29 @@ Then refresh the site. User ranks/developments stay in the browser until reset.
 | 9 | The Ensign Group | ENSG | Local-leader autonomy in skilled nursing |
 | 10 | Watsco | WSO | HVAC buy-and-build, Nahmad since 1972 |
 
+## Valuation %
+
+Each company shows where its market multiple sits vs roughly the last ten years of its own history:
+
+- **0%** = at the low end of the range (cheaper)
+- **100%** = at the high end (richer)
+
+Market multiple by type:
+
+- Most serial acquirers / industrials / software → **EV/EBITDA** (spot); the 0–100% bar uses EV/EBITDA when history is long enough, otherwise trailing **P/E** for the ~10y range
+- Banks → **P/TBV** (or P/B / P/E if tangible book history is thin)
+
+Refresh data with:
+
+```bash
+python scripts/fetch_valuations.py
+```
+
+Writes `data/valuations.json` (Yahoo Finance via `yfinance`).
+
 ## Changelog
 
+- **2026-11-12** — Added valuation % of ~10y range (0=cheap, 100=rich) using market-driven multiples (EV/EBITDA / P/TBV), with refresh script `scripts/fetch_valuations.py`.
 - **2026-11-12** — New **Emerging** segment: 50 smaller or newer acquirers across 15 countries in their own tab (group by country, industry or score), with `emergingLens` in `framework.json`. Each has `segment: "emerging"` and an `emerging` object (`sector`, `size`, `prove`).
 - **2026-11-12** — New **Banks** segment: 14 bank consolidators (12 US, BAWAG, OTP) in their own tab with a bank-specific lens (`bankLens` in `framework.json`). Each bank has `segment: "banks"` and a `bank` object (`status`, `assets`, `record`, `proof`); status is Proven / Steady / Digesting depending on whether returns improved after its deals. Rankings gained a segment filter.
 - **2026-11-11** — Added 38 established acquirers screened for proven CEOs and remaining runway (US, Canada, Sweden, Ireland, Denmark, Switzerland, Netherlands, UK, Australia, Japan). New optional fields in `companies.json`: `ceo` (shown in the detail view, searchable) and `added` (most recent batch gets a "New" badge).

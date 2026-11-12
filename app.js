@@ -14,6 +14,9 @@ const PILLAR_LABELS = {
 const state = {
   framework: null,
   companies: [],
+  valuations: {},
+  valuationNotes: "",
+  valuationUpdated: null,
   tab: "framework",
   search: "",
   sort: "rank",
@@ -24,11 +27,17 @@ const state = {
 };
 
 async function loadData() {
-  const [framework, companyData] = await Promise.all([
+  const [framework, companyData, valuationData] = await Promise.all([
     fetch("./data/framework.json").then((r) => r.json()),
     fetch("./data/companies.json").then((r) => r.json()),
+    fetch("./data/valuations.json")
+      .then((r) => (r.ok ? r.json() : { valuations: {} }))
+      .catch(() => ({ valuations: {} })),
   ]);
   state.framework = framework;
+  state.valuations = valuationData.valuations || {};
+  state.valuationNotes = valuationData.notes || "";
+  state.valuationUpdated = valuationData.updated || null;
   const userRanks = readJson(STORAGE_RANKS, {});
   const userDevs = readJson(STORAGE_DEVS, {});
   state.companies = companyData.companies.map((c) => {
@@ -36,6 +45,7 @@ async function loadData() {
     return {
       ...c,
       weighted,
+      valuation: state.valuations[c.id] || null,
       userRank: userRanks[c.id] ?? c.rank,
       userDevelopments: userDevs[c.id] ?? [],
     };
@@ -122,9 +132,106 @@ function filteredCompanies(country = null) {
   });
   if (state.sort === "rank") list.sort((a, b) => a.userRank - b.userRank);
   else if (state.sort === "score") list.sort((a, b) => b.weighted - a.weighted || a.userRank - b.userRank);
-  else if (state.sort === "name") list.sort((a, b) => a.name.localeCompare(b.name));
+  else if (state.sort === "valuation") {
+    list.sort((a, b) => {
+      const pa = a.valuation?.percentile;
+      const pb = b.valuation?.percentile;
+      if (pa == null && pb == null) return a.userRank - b.userRank;
+      if (pa == null) return 1;
+      if (pb == null) return -1;
+      return pa - pb || a.userRank - b.userRank;
+    });
+  } else if (state.sort === "name") list.sort((a, b) => a.name.localeCompare(b.name));
   else if (state.sort === "ticker") list.sort((a, b) => a.ticker.localeCompare(b.ticker));
   return list;
+}
+
+function valuationTone(pct) {
+  if (pct == null) return "unknown";
+  if (pct <= 33) return "cheap";
+  if (pct <= 66) return "mid";
+  return "rich";
+}
+
+function formatMultiple(v) {
+  if (v == null || Number.isNaN(Number(v))) return "—";
+  const n = Number(v);
+  return n >= 100 ? n.toFixed(0) : n.toFixed(1);
+}
+
+function renderValuationCell(c, { compact = false } = {}) {
+  const v = c.valuation;
+  if (!v || v.percentile == null) {
+    return `<div class="val-cell empty" title="No valuation history yet">${
+      v?.spot != null ? `<span class="val-spot">${escapeHtml(v.spotLabel || "")} ${formatMultiple(v.spot)}</span>` : "—"
+    }</div>`;
+  }
+  const tone = valuationTone(v.percentile);
+  const spotLabel = v.spotLabel || v.metricLabel || "";
+  const rangeLabel = v.rangeMetric || spotLabel;
+  const title = [
+    `${spotLabel} spot ${formatMultiple(v.spot ?? v.current)}`,
+    `${rangeLabel} ${formatMultiple(v.low)}–${formatMultiple(v.high)} over ~${v.years ?? "10"}y`,
+    `${v.percentile}% of range (0=cheap, 100=rich)`,
+    v.metricWhy || "",
+  ]
+    .filter(Boolean)
+    .join(" · ");
+  return `
+    <div class="val-cell ${tone}" title="${escapeHtml(title)}">
+      <div class="val-top">
+        <span class="val-pct">${v.percentile}%</span>
+        ${compact ? "" : `<span class="val-metric">${escapeHtml(spotLabel)} ${formatMultiple(v.spot ?? v.current)}</span>`}
+      </div>
+      <div class="val-bar" aria-hidden="true"><span style="width:${v.percentile}%"></span></div>
+      ${
+        compact
+          ? ""
+          : `<div class="val-range">${escapeHtml(rangeLabel)} ${formatMultiple(v.low)}–${formatMultiple(v.high)}</div>`
+      }
+    </div>`;
+}
+
+function renderValuationPanel(c) {
+  const v = c.valuation;
+  if (!v) {
+    return `<div class="val-panel muted">Valuation history not loaded yet. Run <code>python scripts/fetch_valuations.py</code>.</div>`;
+  }
+  const tone = valuationTone(v.percentile);
+  const spotLabel = v.spotLabel || v.metricLabel || "Multiple";
+  const rangeLabel = v.rangeMetric || spotLabel;
+  return `
+    <div class="val-panel">
+      <div class="val-panel-head">
+        <div>
+          <h3>Valuation vs ~${v.years ?? 10}y history</h3>
+          <p class="muted">${escapeHtml(v.metricWhy || "Market multiple vs own history.")}</p>
+        </div>
+        <div class="val-spot-lg">
+          <span class="muted">${escapeHtml(spotLabel)}</span>
+          <strong>${formatMultiple(v.spot ?? v.current)}</strong>
+        </div>
+      </div>
+      ${
+        v.percentile != null
+          ? `
+      <div class="val-scale ${tone}">
+        <div class="val-scale-labels"><span>0% cheap</span><span>${v.percentile}% of range</span><span>100% rich</span></div>
+        <div class="val-bar lg" aria-hidden="true"><span style="width:${v.percentile}%"></span></div>
+        <div class="val-scale-meta">
+          <span>${escapeHtml(rangeLabel)} low ${formatMultiple(v.low)}</span>
+          <span>median ${formatMultiple(v.median)}</span>
+          <span>high ${formatMultiple(v.high)}</span>
+        </div>
+      </div>
+      ${
+        rangeLabel !== spotLabel && v.spot != null
+          ? `<p class="muted val-note">Spot uses ${escapeHtml(spotLabel)}; the 0–100% bar uses ${escapeHtml(rangeLabel)} because that series has a longer history.</p>`
+          : ""
+      }`
+          : `<p class="muted">Have a spot multiple (${escapeHtml(spotLabel)} ${formatMultiple(v.spot)}) but not enough history for a range.</p>`
+      }
+    </div>`;
 }
 
 function groupByIndustry(list) {
@@ -234,7 +341,7 @@ function emergingTable(list, showCountry) {
       <div class="table-scroll">
       <table class="company-table bank-table">
         <thead>
-          <tr><th>Company</th>${showCountry ? "<th>Country / industry</th>" : "<th>Industry</th>"}<th>Size</th><th>What it still has to prove</th><th>Score</th><th>IBKR</th></tr>
+          <tr><th>Company</th>${showCountry ? "<th>Country / industry</th>" : "<th>Industry</th>"}<th>Size</th><th>What it still has to prove</th><th>Score</th><th title="0%=cheap vs history, 100%=rich">Val %</th><th>IBKR</th></tr>
         </thead>
         <tbody>
           ${list
@@ -250,6 +357,7 @@ function emergingTable(list, showCountry) {
             <td><span class="chip">${escapeHtml(c.emerging?.size || "—")}</span></td>
             <td class="bank-text">${escapeHtml(c.emerging?.prove || "")}</td>
             <td><span class="score-badge">${c.weighted}</span></td>
+            <td>${renderValuationCell(c, { compact: true })}</td>
             <td><span class="ticker">${escapeHtml(c.ibkr)}</span></td>
           </tr>`
             )
@@ -383,7 +491,7 @@ function renderBanks() {
       <div class="table-scroll">
       <table class="company-table bank-table">
         <thead>
-          <tr><th>Bank</th><th>Status</th><th>Deal record</th><th>Evidence it worked</th><th>Score</th><th>IBKR</th></tr>
+          <tr><th>Bank</th><th>Status</th><th>Deal record</th><th>Evidence it worked</th><th>Score</th><th title="0%=cheap vs history, 100%=rich">Val %</th><th>IBKR</th></tr>
         </thead>
         <tbody>
           ${list
@@ -400,6 +508,7 @@ function renderBanks() {
             <td class="bank-text">${escapeHtml(c.bank?.record || "")}</td>
             <td class="bank-text">${escapeHtml(c.bank?.proof || "")}</td>
             <td><span class="score-badge">${c.weighted}</span></td>
+            <td>${renderValuationCell(c, { compact: true })}</td>
             <td><span class="ticker">${escapeHtml(c.ibkr)}</span></td>
           </tr>`
             )
@@ -421,7 +530,7 @@ function renderRankings() {
       <div class="section-head">
         <div>
           <h2>Your ranking</h2>
-          <p>Drag rows or edit rank #. Scores are weighted pillar totals (0–100). Click a row for details &amp; developments.</p>
+          <p>Drag rows or edit rank #. Scores are weighted pillar totals (0–100). Valuation % is where the market multiple sits vs ~10y history (0=cheap, 100=rich). Click a row for details.</p>
         </div>
         <div class="controls">
           <label>
@@ -438,6 +547,7 @@ function renderRankings() {
             <select id="sort-select">
               <option value="rank" ${state.sort === "rank" ? "selected" : ""}>Sort: my rank</option>
               <option value="score" ${state.sort === "score" ? "selected" : ""}>Sort: weighted score</option>
+              <option value="valuation" ${state.sort === "valuation" ? "selected" : ""}>Sort: valuation % (cheap→rich)</option>
               <option value="name" ${state.sort === "name" ? "selected" : ""}>Sort: name</option>
               <option value="ticker" ${state.sort === "ticker" ? "selected" : ""}>Sort: ticker</option>
             </select>
@@ -464,6 +574,7 @@ function renderCountry(country) {
             <select id="sort-select">
               <option value="rank" ${state.sort === "rank" ? "selected" : ""}>Sort: my rank</option>
               <option value="score" ${state.sort === "score" ? "selected" : ""}>Sort: weighted score</option>
+              <option value="valuation" ${state.sort === "valuation" ? "selected" : ""}>Sort: valuation % (cheap→rich)</option>
               <option value="name" ${state.sort === "name" ? "selected" : ""}>Sort: name</option>
             </select>
           </label>
@@ -496,6 +607,7 @@ function renderCompanyTable(list, { showCountry, draggable }) {
           ${showCountry ? "<th>Country</th>" : ""}
           <th>Industry</th>
           <th>Score</th>
+          <th title="0% = low end of ~10y multiple range; 100% = high end">Valuation</th>
           <th>Tier</th>
           <th>IBKR</th>
         </tr>
@@ -519,6 +631,7 @@ function renderCompanyTable(list, { showCountry, draggable }) {
             ${showCountry ? `<td>${escapeHtml(c.country)}</td>` : ""}
             <td>${escapeHtml(c.industry)}</td>
             <td><span class="score-badge">${c.weighted}</span></td>
+            <td>${renderValuationCell(c)}</td>
             <td><span class="tier-badge ${tierClass(tier.label)}">${escapeHtml(tier.label)}</span></td>
             <td><span class="ticker">${escapeHtml(c.ibkr)}</span></td>
           </tr>`;
@@ -644,6 +757,7 @@ function openCompany(id) {
     <p><span class="rank-badge">#${c.userRank}</span>
        <span class="score-badge">${c.weighted}</span>
        <span class="tier-badge ${tierClass(tier.label)}">${escapeHtml(tier.label)}</span></p>
+    ${renderValuationPanel(c)}
     ${
       c.emerging
         ? `<div class="bank-box">

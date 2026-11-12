@@ -671,3 +671,115 @@ select {
 .bank-box p {
   margin: 0.3rem 0;
 }
+
+/* Valuation percentile */
+.val-cell {
+  min-width: 7.5rem;
+  max-width: 11rem;
+}
+.val-cell.empty {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+.val-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem;
+  margin-bottom: 0.25rem;
+}
+.val-pct {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.val-metric {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.val-range {
+  margin-top: 0.2rem;
+  font-size: 0.68rem;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+.val-bar {
+  height: 6px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--line) 70%, white);
+  overflow: hidden;
+}
+.val-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--watch);
+}
+.val-cell.cheap .val-pct,
+.val-scale.cheap .val-scale-labels span:nth-child(2) { color: var(--elite); }
+.val-cell.cheap .val-bar > span,
+.val-scale.cheap .val-bar > span { background: var(--elite); }
+.val-cell.mid .val-pct { color: var(--watch); }
+.val-cell.rich .val-pct,
+.val-scale.rich .val-scale-labels span:nth-child(2) { color: var(--spec); }
+.val-cell.rich .val-bar > span,
+.val-scale.rich .val-bar > span { background: var(--spec); }
+.val-spot {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+}
+
+.val-panel {
+  margin: 1rem 0 0.4rem;
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--paper-2) 40%, white);
+}
+.val-panel-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+.val-panel-head h3 {
+  margin: 0 0 0.2rem;
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+.val-panel-head p { margin: 0; }
+.val-spot-lg {
+  text-align: right;
+  white-space: nowrap;
+}
+.val-spot-lg span {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.val-spot-lg strong {
+  font-family: var(--mono);
+  font-size: 1.45rem;
+}
+.val-bar.lg { height: 10px; }
+.val-scale-labels,
+.val-scale-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin: 0.35rem 0;
+}
+.val-scale-labels span:nth-child(2) {
+  font-weight: 600;
+  color: var(--ink);
+}
+.val-note { margin: 0.55rem 0 0; font-size: 0.82rem; }
