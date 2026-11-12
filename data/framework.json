@@ -182,5 +182,24 @@
         "note": "Large recent deal; returns or TBV below pre-deal levels for now"
       }
     ]
+  },
+  "emergingLens": {
+    "title": "Emerging acquirers",
+    "subtitle": "Smaller or newer companies growing mainly by acquisition. The model fits the framework; the track record, scale or balance sheet is not yet proven. Treat as a research pipeline, not a ranking of quality.",
+    "lookFor": [
+      "Founder or owner-operator with real money in the shares",
+      "Small private targets bought at low multiples, mostly from retiring owners",
+      "Deals funded from cash flow and modest debt rather than repeated share issues",
+      "Organic growth reported separately and positive",
+      "A stated return hurdle and evidence of deals declined"
+    ],
+    "redFlags": [
+      "Revenue growing much faster than profit or cash flow",
+      "Leverage and earn-out liabilities rising together",
+      "Deal size jumping to a multiple of anything done before",
+      "Adjusted earnings that exclude recurring acquisition costs",
+      "Thin trading and a single key person"
+    ],
+    "sizes": "Size is an approximate market-value bucket: Micro (under ~US$0.5B), Small (~US$0.5-3B), Mid (above ~US$3B)."
   }
 }

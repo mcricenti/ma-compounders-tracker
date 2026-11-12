@@ -42,6 +42,7 @@ Add or update names in `data/companies.json`:
 - `rank` (default order)
 - `ceo`, `added` (optional)
 - `segment: "banks"` + `bank` object (banks only)
+- `segment: "emerging"` + `emerging` object (emerging acquirers only)
 - `thesis`, `sources`, `developments`
 
 Then refresh the site. User ranks/developments stay in the browser until reset.
@@ -69,5 +70,6 @@ Then refresh the site. User ranks/developments stay in the browser until reset.
 
 ## Changelog
 
+- **2026-11-12** — New **Emerging** segment: 50 smaller or newer acquirers across 15 countries in their own tab (group by country, industry or score), with `emergingLens` in `framework.json`. Each has `segment: "emerging"` and an `emerging` object (`sector`, `size`, `prove`).
 - **2026-11-12** — New **Banks** segment: 14 bank consolidators (12 US, BAWAG, OTP) in their own tab with a bank-specific lens (`bankLens` in `framework.json`). Each bank has `segment: "banks"` and a `bank` object (`status`, `assets`, `record`, `proof`); status is Proven / Steady / Digesting depending on whether returns improved after its deals. Rankings gained a segment filter.
 - **2026-11-11** — Added 38 established acquirers screened for proven CEOs and remaining runway (US, Canada, Sweden, Ireland, Denmark, Switzerland, Netherlands, UK, Australia, Japan). New optional fields in `companies.json`: `ceo` (shown in the detail view, searchable) and `added` (most recent batch gets a "New" badge).

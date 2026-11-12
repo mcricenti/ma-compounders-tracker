@@ -20,6 +20,7 @@ const state = {
   dragId: null,
   latestAdded: null,
   segment: "all",
+  emergingGroup: "country",
 };
 
 async function loadData() {
@@ -141,6 +142,7 @@ function renderTabs() {
     { id: "framework", label: "What we look for" },
     { id: "rankings", label: "Rankings" },
     ...(state.companies.some(isBank) ? [{ id: "banks", label: "Banks" }] : []),
+    ...(state.companies.some(isEmerging) ? [{ id: "emerging", label: "Emerging" }] : []),
     ...countries().map((c) => ({ id: `country:${c}`, label: c })),
   ];
   tabs.innerHTML = items
@@ -163,6 +165,7 @@ function render() {
   if (state.tab === "framework") app.innerHTML = renderFramework();
   else if (state.tab === "rankings") app.innerHTML = renderRankings();
   else if (state.tab === "banks") app.innerHTML = renderBanks();
+  else if (state.tab === "emerging") app.innerHTML = renderEmerging();
   else if (state.tab.startsWith("country:")) {
     const country = state.tab.slice("country:".length);
     app.innerHTML = renderCountry(country);
@@ -220,6 +223,109 @@ function renderFramework() {
 
 function isBank(c) {
   return c.segment === "banks";
+}
+
+function isEmerging(c) {
+  return c.segment === "emerging";
+}
+
+function emergingTable(list, showCountry) {
+  return `
+      <div class="table-scroll">
+      <table class="company-table bank-table">
+        <thead>
+          <tr><th>Company</th>${showCountry ? "<th>Country / industry</th>" : "<th>Industry</th>"}<th>Size</th><th>What it still has to prove</th><th>Score</th><th>IBKR</th></tr>
+        </thead>
+        <tbody>
+          ${list
+            .map(
+              (c) => `
+          <tr data-id="${c.id}">
+            <td class="name-cell">
+              <strong>${escapeHtml(c.name)}</strong>
+              <span class="ticker">${escapeHtml(c.ticker)}</span>
+              <div class="muted">${escapeHtml(c.model)}</div>
+            </td>
+            <td>${escapeHtml(showCountry ? c.country : c.industry)}${showCountry ? `<div class="muted">${escapeHtml(c.industry)}</div>` : ""}</td>
+            <td><span class="chip">${escapeHtml(c.emerging?.size || "—")}</span></td>
+            <td class="bank-text">${escapeHtml(c.emerging?.prove || "")}</td>
+            <td><span class="score-badge">${c.weighted}</span></td>
+            <td><span class="ticker">${escapeHtml(c.ibkr)}</span></td>
+          </tr>`
+            )
+            .join("")}
+        </tbody>
+      </table>
+      </div>`;
+}
+
+function renderEmerging() {
+  const lens = state.framework.emergingLens;
+  const byScore = (a, b) => b.weighted - a.weighted || a.name.localeCompare(b.name);
+  const list = filteredCompanies().filter(isEmerging).sort(byScore);
+  const mode = state.emergingGroup;
+  let body;
+  if (!list.length) body = `<div class="empty">No companies match this filter.</div>`;
+  else if (mode === "score") body = emergingTable(list, true);
+  else {
+    const key = mode === "industry" ? "industry" : "country";
+    const groupOf = (c) => (key === "industry" ? c.emerging?.sector || c.industry : c.country);
+    const groups = new Map();
+    list.forEach((c) => {
+      if (!groups.has(groupOf(c))) groups.set(groupOf(c), []);
+      groups.get(groupOf(c)).push(c);
+    });
+    body = [...groups.entries()]
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(
+        ([name, comps]) => `
+        <div class="industry-block">
+          <h3>${escapeHtml(name)} <span class="muted">· ${comps.length}</span></h3>
+          ${emergingTable(comps, key === "industry")}
+        </div>`
+      )
+      .join("");
+  }
+  return `
+    <section class="panel">
+      ${
+        lens
+          ? `
+      <div class="framework-hero">
+        <h2>${escapeHtml(lens.title)}</h2>
+        <p>${escapeHtml(lens.subtitle)}</p>
+      </div>
+      <div class="pillar-grid">
+        <article class="pillar">
+          <h4>Look for</h4>
+          <ul>${lens.lookFor.map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul>
+        </article>
+        <article class="pillar">
+          <h4>Red flags</h4>
+          <ul>${lens.redFlags.map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul>
+          <p class="muted">${escapeHtml(lens.sizes)}</p>
+        </article>
+      </div>`
+          : ""
+      }
+      <div class="section-head">
+        <div>
+          <h2>${list.length} emerging acquirers</h2>
+          <p>${new Set(list.map((c) => c.country)).size} countries · ${new Set(list.map((c) => c.emerging?.sector)).size} sectors. Click a row for the thesis and developments.</p>
+        </div>
+        <div class="controls">
+          <label>
+            <span class="sr-only">Group by</span>
+            <select id="emerging-group">
+              <option value="country" ${mode === "country" ? "selected" : ""}>Group: country</option>
+              <option value="industry" ${mode === "industry" ? "selected" : ""}>Group: sector</option>
+              <option value="score" ${mode === "score" ? "selected" : ""}>One list by score</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      ${body}
+    </section>`;
 }
 
 function statusClass(status) {
@@ -308,7 +414,7 @@ function renderBanks() {
 
 function renderRankings() {
   const list = filteredCompanies().filter(
-    (c) => state.segment === "all" || (state.segment === "banks" ? isBank(c) : !isBank(c))
+    (c) => state.segment === "all" || (c.segment || "acquirers") === state.segment
   );
   return `
     <section class="panel">
@@ -324,6 +430,7 @@ function renderRankings() {
               <option value="all" ${state.segment === "all" ? "selected" : ""}>All segments</option>
               <option value="acquirers" ${state.segment === "acquirers" ? "selected" : ""}>Serial acquirers</option>
               <option value="banks" ${state.segment === "banks" ? "selected" : ""}>Banks</option>
+              <option value="emerging" ${state.segment === "emerging" ? "selected" : ""}>Emerging</option>
             </select>
           </label>
           <label>
@@ -438,6 +545,14 @@ function bindTableEvents() {
     });
   }
 
+  const emergingGroup = document.getElementById("emerging-group");
+  if (emergingGroup) {
+    emergingGroup.addEventListener("change", () => {
+      state.emergingGroup = emergingGroup.value;
+      render();
+    });
+  }
+
   document.querySelectorAll(".rank-input").forEach((input) => {
     input.addEventListener("change", () => {
       const id = input.dataset.rankFor;
@@ -529,6 +644,14 @@ function openCompany(id) {
     <p><span class="rank-badge">#${c.userRank}</span>
        <span class="score-badge">${c.weighted}</span>
        <span class="tier-badge ${tierClass(tier.label)}">${escapeHtml(tier.label)}</span></p>
+    ${
+      c.emerging
+        ? `<div class="bank-box">
+      <p><span class="chip">Emerging · ${escapeHtml(c.emerging.size)} cap</span></p>
+      <p><strong>Still has to prove:</strong> ${escapeHtml(c.emerging.prove)}</p>
+    </div>`
+        : ""
+    }
     <div class="score-grid">
       ${Object.entries(c.scores)
         .map(
