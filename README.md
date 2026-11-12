@@ -40,6 +40,7 @@ Add or update names in `data/companies.json`:
 - `ticker` / `ibkr` / `exchange` / `country` / `industry`
 - `scores` (1–10 per pillar in `framework.json`)
 - `rank` (default order)
+- `ceo`, `added` (optional)
 - `thesis`, `sources`, `developments`
 
 Then refresh the site. User ranks/developments stay in the browser until reset.
@@ -55,12 +56,16 @@ Then refresh the site. User ranks/developments stay in the browser until reset.
 | Rank | Company | Ticker | Why (short) |
 |---:|---|---|---|
 | 1 | Constellation Software | CSU | Elite VMS deal machine + capital hurdles |
-| 2 | Danaher | DHR | DBS / platform M&A, 1+1>2 operating system |
-| 3 | Lifco | LIFCO.B | Swedish autonomy model reference |
-| 4 | HEICO | HEI | Niche aero serial acquirer, long compounding |
-| 5 | TransDigm | TDG | Proprietary aero parts + aggressive CA |
-| 6 | Addtech | ADDT.B | Deep Swedish compounding history |
-| 7 | Lagercrantz | LAGR.B | High-quality Nordic niche acquirer |
-| 8 | Halma | HLMA | UK critical-niche autonomy compounder |
-| 9 | Topicus | TOI | European VMS runway, CSU orbit |
-| 10 | Roper | ROP | Asset-light software/tech consolidator |
+| 2 | Amphenol | APH | Decentralized interconnect acquirer, Norwitt since 2009 |
+| 3 | Waste Connections | WCN | Founder-led waste roll-up in exclusive markets |
+| 4 | Danaher | DHR | DBS / platform M&A, 1+1>2 operating system |
+| 5 | Lifco | LIFCO.B | Swedish autonomy model reference |
+| 6 | HEICO | HEI | Niche aero serial acquirer, long compounding |
+| 7 | FirstService | FSV | Hennick partnership model in property services |
+| 8 | AMETEK | AME | Niche instruments + operating system, Zapico |
+| 9 | The Ensign Group | ENSG | Local-leader autonomy in skilled nursing |
+| 10 | Watsco | WSO | HVAC buy-and-build, Nahmad since 1972 |
+
+## Changelog
+
+- **2026-11-11** — Added 38 established acquirers screened for proven CEOs and remaining runway (US, Canada, Sweden, Ireland, Denmark, Switzerland, Netherlands, UK, Australia, Japan). New optional fields in `companies.json`: `ceo` (shown in the detail view, searchable) and `added` (most recent batch gets a "New" badge).

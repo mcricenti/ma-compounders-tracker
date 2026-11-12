@@ -18,6 +18,7 @@ const state = {
   search: "",
   sort: "rank",
   dragId: null,
+  latestAdded: null,
 };
 
 async function loadData() {
@@ -37,6 +38,7 @@ async function loadData() {
       userDevelopments: userDevs[c.id] ?? [],
     };
   });
+  state.latestAdded = state.companies.map((c) => c.added || "").sort().pop() || null;
   normalizeUserRanks();
 }
 
@@ -61,6 +63,10 @@ function weightedScore(scores, pillars) {
 function tierFor(score, tiers) {
   const sorted = [...tiers].sort((a, b) => b.min - a.min);
   return sorted.find((t) => score >= t.min) ?? sorted[sorted.length - 1];
+}
+
+function isNew(c) {
+  return Boolean(c.added) && c.added === state.latestAdded;
 }
 
 function tierClass(label) {
@@ -108,7 +114,8 @@ function filteredCompanies(country = null) {
       c.name.toLowerCase().includes(q) ||
       c.ticker.toLowerCase().includes(q) ||
       c.industry.toLowerCase().includes(q) ||
-      c.ibkr.toLowerCase().includes(q)
+      c.ibkr.toLowerCase().includes(q) ||
+      (c.ceo || "").toLowerCase().includes(q)
     );
   });
   if (state.sort === "rank") list.sort((a, b) => a.userRank - b.userRank);
@@ -298,6 +305,7 @@ function renderCompanyTable(list, { showCountry, draggable }) {
             <td class="name-cell">
               <strong>${escapeHtml(c.name)}</strong>
               <span class="ticker">${escapeHtml(c.ticker)}</span>
+              ${isNew(c) ? '<span class="new-badge" title="Added ' + escapeHtml(c.added) + '">New</span>' : ""}
               <div class="muted">${escapeHtml(c.model)}</div>
             </td>
             ${showCountry ? `<td>${escapeHtml(c.country)}</td>` : ""}
@@ -398,6 +406,7 @@ function openCompany(id) {
     <p class="brand-mark">${escapeHtml(c.country)} · ${escapeHtml(c.industry)}</p>
     <h2>${escapeHtml(c.name)}</h2>
     <p class="ticker">${escapeHtml(c.ticker)} · IBKR: ${escapeHtml(c.ibkr)} · Exchange: ${escapeHtml(c.exchange)}</p>
+    ${c.ceo ? `<p class="ceo-line"><strong>Capital allocator:</strong> ${escapeHtml(c.ceo)}</p>` : ""}
     <p>${escapeHtml(c.thesis)}</p>
     <p><span class="rank-badge">#${c.userRank}</span>
        <span class="score-badge">${c.weighted}</span>
